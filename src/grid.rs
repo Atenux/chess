@@ -1,10 +1,10 @@
 use core::fmt;
-use std::ops::Add;
+use std::collections::hash_map;
 
 
 pub enum Player{
-  black,
-  white,
+  Black,
+  White,
 }
 
 pub enum Piece{
@@ -24,71 +24,84 @@ impl fmt::Display for Piece {
     use Player::*;
     match self {
       K(player) => match player {
-          white => write!(f, "♔"),
-          black => write!(f, "♚"),
+          White => write!(f, "♔"),
+          Black => write!(f, "♚"),
       },
       Q(player) =>  match player {
-        white => write!(f, "♕"),
-        black => write!(f, "♛"),
+        White => write!(f, "♕"),
+        Black => write!(f, "♛"),
       },
       
       R(player) => match player {
-        white => write!(f, "♖"),
-        black => write!(f, "♜"),
+        White => write!(f, "♖"),
+        Black => write!(f, "♜"),
       },
       B(player) => match player {
-        white => write!(f, "♗"),
-        black => write!(f, "♝"),
+        White => write!(f, "♗"),
+        Black => write!(f, "♝"),
       },
       N(player) => match player {
-        white => write!(f, "♘"),
-        black => write!(f, "♞"),
+        White => write!(f, "♘"),
+        Black => write!(f, "♞"),
       },
       P(player) => match player {
-        white => write!(f, "♙"),
-        black => write!(f, "♟︎"),
+        White => write!(f, "♙"),
+        Black => write!(f, "♟︎"),
       },
       Empty => write!(f," "),
     }
   }
 }
 
-struct Tile{
-  x: i8,
-  y: i8,
-  piece: Piece,
-}
+// struct Tile{
+//   x: i8,
+//   y: i8,
+//   piece: Piece,
+// }
 pub struct Board{
   tiles: [[Piece; 8]; 8]
 }
 
 impl fmt::Display for Board {
   fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-    todo!();
-    // let mut s: String = "".to_string();
-    // for row in self.tiles{
-    //   for tile in row{
-    //     s.add(tile.to_string().as_str());
-    //   }
-    //   s.add("\n");
-    // }
-    // return Result::Ok(());
+    let tiles = self.tiles.iter();
+    let mut s: String = "".to_string();
+    for row in tiles {
+      for tile in row {
+        s.push_str(&tile.to_string());
+        s.push_str(" ")
+      }
+      s.push_str("\n");
+    }
+    write!(f,"{}",s)
   }
 }
+
+struct Coordinate{
+  row: char,
+  column: char,
+}
+
+impl Coordinate{
+  pub fn to_numbers(&self){
+    
+  }
+}
+
 impl Board{
   pub fn new() -> Board {
     use Piece::*;
     use Player::*;
     let tiles: [[Piece; 8]; 8] = 
       [
-        [R(black), N(black), B(black), Q(black), K(black), B(black), N(black), R(black)],
-        [P(black),P(black),P(black),P(black),P(black),P(black),P(black),P(black)],
+        [R(Black), N(Black), B(Black), Q(Black), K(Black), B(Black), N(Black), R(Black)],
+        [P(Black),P(Black),P(Black),P(Black),P(Black),P(Black),P(Black),P(Black)],
         [Empty,Empty,Empty,Empty,Empty,Empty,Empty,Empty,],
         [Empty,Empty,Empty,Empty,Empty,Empty,Empty,Empty,],
         [Empty,Empty,Empty,Empty,Empty,Empty,Empty,Empty,],
         [Empty,Empty,Empty,Empty,Empty,Empty,Empty,Empty,],
-        [P(white),P(white),P(white),P(white),P(white),P(white),P(white),P(white),],
-        [R(white), N(white), B(white), Q(white),K(white),B(white), N(white), R(white),]
+        [P(White),P(White),P(White),P(White),P(White),P(White),P(White),P(White),],
+        [R(White), N(White), B(White), Q(White),K(White),B(White), N(White), R(White),]
       ];
     Board { tiles }
   }
