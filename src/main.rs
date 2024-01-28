@@ -1,9 +1,8 @@
 mod grid;
 
-fn add2(x: i32) -> i32{
-    x+2
-}
 fn main() {
-    let a = grid::Board::new();
-    println!("{a}")
+    let king = grid::Piece::K(grid::Player::white);
+    let queen = grid::Piece::N(grid::Player::black);
+    println!("{king}");
+    println!("{queen}");
 }

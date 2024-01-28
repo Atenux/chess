@@ -1,9 +1,10 @@
 use core::fmt;
+use std::ops::Add;
 
 
 pub enum Player{
-  Black,
-  White,
+  black,
+  white,
 }
 
 pub enum Piece{
@@ -16,25 +17,62 @@ pub enum Piece{
   Empty,
 }
 
+impl fmt::Display for Piece {
+  
+  fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+    use Piece::*;
+    use Player::*;
+    match self {
+      K(player) => match player {
+          white => write!(f, "♔"),
+          black => write!(f, "♚"),
+      },
+      Q(player) =>  match player {
+        white => write!(f, "♕"),
+        black => write!(f, "♛"),
+      },
+      
+      R(player) => match player {
+        white => write!(f, "♖"),
+        black => write!(f, "♜"),
+      },
+      B(player) => match player {
+        white => write!(f, "♗"),
+        black => write!(f, "♝"),
+      },
+      N(player) => match player {
+        white => write!(f, "♘"),
+        black => write!(f, "♞"),
+      },
+      P(player) => match player {
+        white => write!(f, "♙"),
+        black => write!(f, "♟︎"),
+      },
+      Empty => write!(f," "),
+    }
+  }
+}
+
 struct Tile{
   x: i8,
   y: i8,
   piece: Piece,
 }
-
 pub struct Board{
   tiles: [[Piece; 8]; 8]
 }
 
 impl fmt::Display for Board {
   fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-    let mut s: String;
-    for row in self.tiles{
-      for tile in row{
-        s.push_str("")
-      }
-    }
-    write!(f, )
+    todo!();
+    // let mut s: String = "".to_string();
+    // for row in self.tiles{
+    //   for tile in row{
+    //     s.add(tile.to_string().as_str());
+    //   }
+    //   s.add("\n");
+    // }
+    // return Result::Ok(());
   }
 }
 impl Board{
@@ -43,14 +81,14 @@ impl Board{
     use Player::*;
     let tiles: [[Piece; 8]; 8] = 
       [
-        [R(Black), N(Black), B(Black), Q(Black), K(Black), B(Black), N(Black), R(Black)],
-        [P(Black),P(Black),P(Black),P(Black),P(Black),P(Black),P(Black),P(Black)],
+        [R(black), N(black), B(black), Q(black), K(black), B(black), N(black), R(black)],
+        [P(black),P(black),P(black),P(black),P(black),P(black),P(black),P(black)],
         [Empty,Empty,Empty,Empty,Empty,Empty,Empty,Empty,],
         [Empty,Empty,Empty,Empty,Empty,Empty,Empty,Empty,],
         [Empty,Empty,Empty,Empty,Empty,Empty,Empty,Empty,],
         [Empty,Empty,Empty,Empty,Empty,Empty,Empty,Empty,],
-        [P(White),P(White),P(White),P(White),P(White),P(White),P(White),P(White),],
-        [R(White), N(White), B(White), Q(White),K(White),B(White), N(White), R(White),]
+        [P(white),P(white),P(white),P(white),P(white),P(white),P(white),P(white),],
+        [R(white), N(white), B(white), Q(white),K(white),B(white), N(white), R(white),]
       ];
     Board { tiles }
   }
