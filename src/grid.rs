@@ -1,5 +1,4 @@
 use core::fmt;
-use std::collections::hash_map;
 
 
 pub enum Player{
@@ -15,6 +14,14 @@ pub enum Piece{
   N(Player),
   P(Player),
   Empty,
+}
+
+struct Move{
+  start: (i8,i8),
+  end: (i8,i8),
+}
+
+struct Rule{
 }
 
 impl fmt::Display for Piece {
@@ -77,14 +84,14 @@ impl fmt::Display for Board {
   }
 }
 
-struct Coordinate{
-  row: char,
-  column: char,
+pub struct Coordinate{
+  pub row: i8,
+  pub column: i8,
 }
 
 impl Coordinate{
-  pub fn to_numbers(&self){
-    
+  pub fn to_notation(self) -> String {
+    todo!()
   }
 }
 
@@ -96,7 +103,7 @@ impl Board{
       [
         [R(Black), N(Black), B(Black), Q(Black), K(Black), B(Black), N(Black), R(Black)],
         [P(Black),P(Black),P(Black),P(Black),P(Black),P(Black),P(Black),P(Black)],
-        [Empty,Empty,Empty,Empty,Empty,Empty,Empty,Empty,],
+        [Empty, Empty,Empty,Empty,Empty,Empty,Empty,Empty,],
         [Empty,Empty,Empty,Empty,Empty,Empty,Empty,Empty,],
         [Empty,Empty,Empty,Empty,Empty,Empty,Empty,Empty,],
         [Empty,Empty,Empty,Empty,Empty,Empty,Empty,Empty,],
@@ -104,5 +111,8 @@ impl Board{
         [R(White), N(White), B(White), Q(White),K(White),B(White), N(White), R(White),]
       ];
     Board { tiles }
+  }
+  pub fn make_move(&self, start: Coordinate, end: Coordinate){
+    todo!()
   }
 }
